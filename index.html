@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<link href="images/logo.png" rel="icon" type="image/png"/>
+<link rel="preload" as="image" href="images/hero-slide-1.png" fetchpriority="high"/>
+<link rel="preload" as="image" href="images/logo.png"/>
+<meta name="description" content="Chauhan Travels & Services offers premium car rental, chauffeur-driven cars, airport transfers, local duty, outstation travel, tours, and corporate travel across Noida, Delhi NCR, and India."/>
+<meta name="keywords" content="car rental in Noida, chauffeur service Delhi NCR, airport transfer Noida, outstation taxi Delhi, corporate travel India, Chauhan Travels"/>
+<meta name="author" content="Chauhan Travels & Services"/>
+<link rel="canonical" href="https://chauhantravelsandservices.in/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Chauhan Travels & Services | Car Rental in Noida & Delhi NCR"/>
+<meta property="og:description" content="Professional chauffeur-driven travel services from Noida and Delhi NCR to destinations across India. 16+ Years of Excellence."/>
+<meta property="og:url" content="https://chauhantravelsandservices.in/"/>
+<meta property="og:image" content="https://chauhantravelsandservices.in/images/logo.png"/>
+<meta name="twitter:card" content="summary"/>
+<title>Chauhan Travels &amp; Services | Car Rental in Noida &amp; Delhi NCR</title>
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://chauhantravelsandservices.in/#business",
+  "name": "Chauhan Travels & Services",
+  "url": "https://chauhantravelsandservices.in/",
+  "logo": "https://chauhantravelsandservices.in/images/logo.png",
+  "image": "https://chauhantravelsandservices.in/images/logo.png",
+  "telephone": "+91-9990470656",
+  "email": "info@chauhantravelsandservices.in",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Plot No- 231, Sector -104, Hazipur",
+    "addressLocality": "Noida",
+    "addressRegion": "Uttar Pradesh",
+    "postalCode": "201301",
+    "addressCountry": "IN"
+  },
+  "areaServed": ["Noida", "Delhi", "Delhi NCR", "Uttar Pradesh", "India"],
+  "serviceType": ["Car Rental", "Chauffeur Service", "Airport Transfer", "Local Duty", "Outstation Travel", "Corporate Travel", "India Tours"]
+}
+</script>
+
+<!-- Fonts & Tailwind -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        navy: "#0B1F4D",
+        gold: "#D4A017",
+        "deep-gold": "#B8860B",
+        "primary-container": "#0B1F4D",
+        "on-surface-variant": "#4A5568",
+        "surface-container-low": "#F8FAFC",
+        "surface-container-lowest": "#FFFFFF",
+        "surface-dim": "#E2E8F0"
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+        display: ["Montserrat", "sans-serif"]
+      }
+    }
+  }
+};
+</script>
+<link rel="stylesheet" href="site.css"/>
+<style>
+/* Hero Slider Styles */
+.hero-slide {
+  position: absolute;
+  inset: -2%;
+  width: 104%;
+  height: 104%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 1.05s ease, transform 7.5s ease;
+  filter: brightness(0.9) saturate(1.05);
+  object-position: center center;
+  will-change: opacity, transform;
+}
+.hero-slide.is-active {
+  opacity: 1;
+  transform: scale(1.01);
+  z-index: 1;
+}
+.hero-slider-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #0B1F4D;
+}
+.hero-slice-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-slice {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: translateX(115%);
+  will-change: transform, opacity;
+  animation: sliceReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes sliceReveal {
+  0% { opacity: 0; transform: translateX(115%); }
+  18% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-18%); }
+}
+.hero-left-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(6,20,52,0.75) 0%, rgba(6,20,52,0.4) 45%, rgba(6,20,52,0.1) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(11,31,77,0.45);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.hero-arrow:hover {
+  background: var(--gold);
+  color: #0B1F4D;
+  border-color: var(--gold);
+  transform: translateY(-50%) scale(1.08);
+}
+.hero-arrow-prev { left: 20px; }
+.hero-arrow-next { right: 20px; }
+.hero-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  z-index: 20;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(255,255,255,0.8);
+  background: transparent;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  padding: 0;
+}
+.hero-dot.is-active {
+  width: 32px;
+  background: #D4A017;
+  border-color: #D4A017;
+}
+@media (max-width: 768px) {
+  #hero-slider { height: 60vh; min-height: 400px; }
+  .hero-arrow { width: 38px; height: 38px; }
+  .hero-arrow-prev { left: 10px; }
+  .hero-arrow-next { right: 10px; }
+}
+</style>
+</head>
+<body class="bg-mist text-slate-800 font-sans antialiased">
+
+<!-- Top Announcement Bar -->
+<div class="site-topbar">
+  <div class="site-topbar-inner">
+    <div class="topbar-highlight">
+      <span class="topbar-badge"><i class="fa-solid fa-star"></i> 16+ Years</span>
+      <span class="topbar-text-full">Excellence in Chauffeur-Driven Cars &amp; Tours | Noida, Delhi NCR &amp; All India</span>
+      <span class="topbar-text-mobile">16+ Years of Excellence | Since 2010</span>
+    </div>
+    <div class="topbar-contact">
+      <a class="topbar-link" href="tel:+919990470656"><i class="fa-solid fa-phone"></i> +91 9990470656</a>
+      <a class="topbar-link" href="https://wa.me/919990470656" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> WhatsApp 24/7</a>
+    </div>
+  </div>
+</div>
+
+<!-- Main Sticky Header -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-brand" href="index.html" aria-label="Chauhan Travels &amp; Services Home">
+      <img class="site-brand-logo" src="images/logo.png" alt="Chauhan Travels Logo" width="48" height="48">
+      <div class="site-brand-info">
+        <span class="site-brand-title">CHAUHAN TRAVELS</span>
+        <span class="site-brand-sub">Tours &amp; Fleet Services</span>
+      </div>
+    </a>
+
+    <nav class="site-nav" aria-label="Main Navigation">
+      <a class="site-nav-link active" href="index.html" aria-current="page">Home</a>
+      <a class="site-nav-link" href="about.html">About</a>
+      <a class="site-nav-link" href="fleet.html">Fleet</a>
+      <a class="site-nav-link" href="#services">Services</a>
+      <a class="site-nav-link" href="packages.html">Packages</a>
+      <a class="site-nav-link" href="tours.html">Tours</a>
+      <a class="site-nav-link" href="payments.html">Payments</a>
+      <a class="site-nav-link" href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn-header-call" href="tel:+919990470656" aria-label="Call +91 9990470656">
+        <i class="fa-solid fa-phone"></i> Call
+      </a>
+      <a class="btn-header-book" href="https://wa.me/919990470656" target="_blank" rel="noopener noreferrer" aria-label="Book on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i> Book Now
+      </a>
+    </div>
+
+    <button class="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" aria-controls="mobile-nav-drawer" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- Hero Carousel Section -->
+  <section class="relative h-[72vh] min-h-[460px] overflow-hidden" id="hero-slider" aria-label="Featured travel hero images">
+    <div class="hero-slider-wrap">
+      <img src="images/hero-slide-1.png" alt="Chauhan Travels luxury travel fleet" class="hero-slide is-active" loading="eager" fetchpriority="high" width="1400" height="850"/>
+      <img src="images/hero-slide-2.png" alt="Chauhan Travels chauffeur-driven vehicles" class="hero-slide" loading="lazy" width="1400" height="850"/>
+      <img src="images/hero-slide-3.png" alt="Chauhan Travels comfortable journey experience" class="hero-slide" loading="lazy" width="1400" height="850"/>
+      <div class="hero-slice-layer" aria-hidden="true"></div>
+    </div>
+    <div class="hero-left-overlay"></div>
+    <button class="hero-arrow hero-arrow-prev" type="button" aria-label="Previous hero image">
+      <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+    </button>
+    <button class="hero-arrow hero-arrow-next" type="button" aria-label="Next hero image">
+      <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+    </button>
+    <div class="hero-dots" id="hero-dots" aria-label="Hero image navigation"></div>
+  </section>
+
+  <!-- Why Choose Chauhan Travels -->
+  <section class="py-16 md:py-20 bg-white" id="why-choose-us">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <div class="text-center mb-12">
+        <p class="text-xs md:text-sm font-bold uppercase tracking-[.2em] text-gold mb-2">The Chauhan Standard</p>
+        <h2 class="font-display text-2xl md:text-4xl font-bold text-navy">Why Choose Chauhan Travels &amp; Services</h2>
+        <div class="w-20 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Feature 1 -->
+        <div class="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-200 text-center card-hover">
+          <div class="w-14 h-14 bg-navy/10 rounded-full flex items-center justify-center mx-auto mb-4 text-gold">
+            <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+          </div>
+          <h4 class="font-display font-bold text-lg text-navy mb-2">24/7 Availability</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">Round-the-clock booking dispatch and live customer support ensuring you are never stranded.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-200 text-center card-hover">
+          <div class="w-14 h-14 bg-navy/10 rounded-full flex items-center justify-center mx-auto mb-4 text-gold">
+            <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+          </div>
+          <h4 class="font-display font-bold text-lg text-navy mb-2">Verified Chauffeurs</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">Police-verified, courteous, and seasoned chauffeurs trained for safety, discretion, and route navigation.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-200 text-center card-hover">
+          <div class="w-14 h-14 bg-navy/10 rounded-full flex items-center justify-center mx-auto mb-4 text-gold">
+            <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">payments</span>
+          </div>
+          <h4 class="font-display font-bold text-lg text-navy mb-2">Transparent Pricing</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">Clear upfront billing with fuel included, transparent outstation garage calculations, and zero hidden costs.</p>
+        </div>
+        <!-- Feature 4 -->
+        <div class="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-200 text-center card-hover">
+          <div class="w-14 h-14 bg-navy/10 rounded-full flex items-center justify-center mx-auto mb-4 text-gold">
+            <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">sanitizer</span>
+          </div>
+          <h4 class="font-display font-bold text-lg text-navy mb-2">Hygiene First</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">Pristine, sanitized, and air-conditioned vehicles washed and prepped prior to every single duty.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Premium Services -->
+  <section class="py-16 md:py-24 bg-slate-50 border-t border-slate-200" id="services">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+        <div>
+          <p class="text-xs md:text-sm font-bold uppercase tracking-[.2em] text-gold mb-2">Comprehensive Mobility</p>
+          <h2 class="font-display text-2xl md:text-4xl font-bold text-navy">Our Premium Services</h2>
+          <div class="w-20 h-1 bg-gold mt-4 rounded-full"></div>
+          <p class="text-sm md:text-base text-slate-600 mt-3 max-w-2xl">Tailored transportation solutions for corporate executives, airport transfers, weddings, and customized India tours.</p>
+        </div>
+        <a class="btn-header-call" href="packages.html">
+          View All Packages <i class="fa-solid fa-arrow-right ml-1"></i>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Service 1: Airport Transfers -->
+        <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+          <div class="aspect-video overflow-hidden bg-slate-100">
+            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Airport transfer pickup and drop vehicle" src="images/service-airport-new.png" loading="lazy" width="800" height="450"/>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="font-display text-xl font-bold text-navy mb-2">Airport Transfers (Pickup &amp; Drop)</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">Punctual flight tracking, terminal meet &amp; greet, and luggage assistance for IGI Airport Delhi.</p>
+            <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gold uppercase">24x7 Punctuality</span>
+              <a class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1" href="https://wa.me/919990470656?text=I%20need%20airport%20transfer%20service" target="_blank" rel="noopener noreferrer">Book Transfer <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 2: Local & Outstation -->
+        <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+          <div class="aspect-video overflow-hidden bg-slate-100">
+            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Local and outstation travel" src="images/service-local-outstation.jpg" loading="lazy" width="800" height="450"/>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="font-display text-xl font-bold text-navy mb-2">Local &amp; Outstation Travel</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">Flexible intra-city packages or intercity journeys across UP, Haryana, Rajasthan, Uttarakhand, and Himachal.</p>
+            <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gold uppercase">Intercity Trips</span>
+              <a class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1" href="https://wa.me/919990470656?text=I%20need%20outstation%20cab%20service" target="_blank" rel="noopener noreferrer">Book Outstation <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 3: Full-Day Rental -->
+        <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+          <div class="aspect-video overflow-hidden bg-slate-100">
+            <img alt="Full-day rental chauffeur car" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" src="images/service-fullday.png" width="800" height="450"/>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="font-display text-xl font-bold text-navy mb-2">Full-Day Car Rental</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">Dedicated chauffeur-driven vehicle at your disposal for business meetings, city shopping, and multi-stop itineraries.</p>
+            <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gold uppercase">8h/80km &amp; 12h/120km</span>
+              <a class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1" href="packages.html">View Packages <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 4: Wedding & Function -->
+        <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+          <div class="aspect-video overflow-hidden bg-slate-100">
+            <img alt="Luxury wedding cars and bridal convoys" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" src="images/service-wedding-new.png" width="800" height="450"/>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="font-display text-xl font-bold text-navy mb-2">Weddings &amp; Family Functions</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">Decorated bridal luxury cars, guest transport fleets, and coordinated wedding convoys with experienced drivers.</p>
+            <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gold uppercase">Luxury Wedding Fleet</span>
+              <a class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1" href="https://wa.me/919990470656?text=I%20need%20wedding%20cars%20booking" target="_blank" rel="noopener noreferrer">Inquire Now <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 5: Long-Term Lease -->
+        <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+          <div class="aspect-video overflow-hidden bg-slate-100">
+            <img alt="Long-term corporate car lease" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" src="images/service-lease.png" width="800" height="450"/>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="font-display text-xl font-bold text-navy mb-2">Long-Term Car Lease</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">Flexible monthly and yearly vehicle leasing solutions for corporate companies, MNCs, expats, and hotels.</p>
+            <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gold uppercase">Corporate Lease</span>
+              <a class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1" href="https://wa.me/919990470656?text=I%20want%20to%20inquire%20about%20long%20term%20car%20lease" target="_blank" rel="noopener noreferrer">Contact Sales <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 6: Events & Conferences -->
+        <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+          <div class="aspect-video overflow-hidden bg-slate-100">
+            <img alt="Corporate events and conference transport" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" src="images/service-events.png" width="800" height="450"/>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="font-display text-xl font-bold text-navy mb-2">Events &amp; Conferences</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">Seamless ground transportation for exhibitions, summit delegates, trade fairs (India Expo Mart), and corporate offsites.</p>
+            <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gold uppercase">Expo &amp; Summit Mobility</span>
+              <a class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1" href="https://wa.me/919990470656?text=I%20need%20event%20transportation%20fleet" target="_blank" rel="noopener noreferrer">Request Fleet <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 7: VIP & Delegation -->
+        <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+          <div class="aspect-video overflow-hidden bg-slate-100">
+            <img alt="VIP delegation chauffeur service" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" src="images/service-vip.png" width="800" height="450"/>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="font-display text-xl font-bold text-navy mb-2">VIP &amp; Delegation Services</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">Premium luxury sedans and flagship SUVs for diplomats, board executives, foreign delegates, and state visitors.</p>
+            <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gold uppercase">Royale Protocol</span>
+              <a class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1" href="fleet.html">View Luxury Fleet <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 8: Hotel Travel Desk -->
+        <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+          <div class="aspect-video overflow-hidden bg-slate-100">
+            <img alt="Hotel mobility and travel desk service" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" src="images/service-hotel-desk.png" width="800" height="450"/>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="font-display text-xl font-bold text-navy mb-2">Hotel Travel Desk Partner</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">Official mobility partner for premier 4-star and 5-star hotels across NCR, providing guest pickups and city tours.</p>
+            <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gold uppercase">Hospitality Partner</span>
+              <a class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1" href="https://wa.me/919990470656?text=I%20want%20to%20partner%20for%20hotel%20travel%20desk" target="_blank" rel="noopener noreferrer">Partner With Us <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 9: Luxury Coaches -->
+        <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 card-hover flex flex-col">
+          <div class="aspect-video overflow-hidden bg-slate-100">
+            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Luxury coach for group travel" src="images/service-luxury-coach.jpg" loading="lazy" width="800" height="450"/>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="font-display text-xl font-bold text-navy mb-2">Tempo Travellers &amp; Coaches</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">High-capacity AC coaches and 12–26 seater Tempo Travellers for group excursions, pilgrimages, and corporate teams.</p>
+            <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-semibold text-gold uppercase">12 to 45 Seaters</span>
+              <a class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1" href="tours.html">Explore Tours <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-16 md:py-24 bg-white" id="about">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="overflow-hidden rounded-2xl border-2 border-gold/40 shadow-xl bg-slate-100">
+        <img alt="Chauhan Travels team and premium vehicle fleet" class="w-full h-auto object-cover" src="images/about.jpg" loading="lazy" width="600" height="450"/>
+      </div>
+      <div>
+        <p class="text-xs md:text-sm font-bold uppercase tracking-[.2em] text-gold mb-2">Our Legacy</p>
+        <h2 class="font-display text-2xl md:text-4xl font-bold text-navy leading-tight">
+          Setting the Standard in Chauffeur Travel Since 2010
+        </h2>
+        <div class="w-20 h-1 bg-gold mt-4 mb-6 rounded-full"></div>
+        <div class="space-y-4 text-sm md:text-base text-slate-600 leading-relaxed">
+          <p>
+            Chauhan Travels &amp; Services began with a simple mission: to elevate the standard of ground transportation across Noida and Delhi NCR. Over 16+ years of excellence, we have grown from a single vehicle into a premier fleet serving corporate leaders, luxury hotels, and discerning families.
+          </p>
+          <p>
+            Our commitment goes beyond simply getting you from point A to B. We focus on the entire experience—ensuring reliability, unmatched comfort, immaculately sanitized cars, and absolute professionalism in every interaction.
+          </p>
+        </div>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a class="btn-header-call" href="about.html">
+            Read Our Full Story <i class="fa-solid fa-arrow-right ml-1"></i>
+          </a>
+          <a class="btn-header-book" href="https://wa.me/919990470656" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 md:py-20 bg-navy relative overflow-hidden" id="cta-booking">
+    <div class="absolute inset-0 opacity-15">
+      <div class="w-full h-full bg-cover bg-center" style="background-image: url('images/cta-bg.jpg')"></div>
+    </div>
+    <div class="relative z-10 max-w-3xl mx-auto text-center px-5 text-white">
+      <p class="text-xs md:text-sm font-bold uppercase tracking-[.2em] text-gold mb-2">Ready For Your Next Journey?</p>
+      <h2 class="font-display text-2xl md:text-4xl font-bold mb-4">Experience the Pinnacle of Travel Comfort</h2>
+      <p class="text-sm md:text-lg text-white/80 mb-8 leading-relaxed">
+        Book your ride today with our professional chauffeur service. Available 24/7 across Noida, Greater Noida, Delhi, Gurugram, and all major cities in India.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a class="btn-header-book inline-flex items-center justify-center gap-2 py-3.5 px-8 text-sm" href="https://wa.me/919990470656?text=I%20want%20to%20book%20a%20ride%20with%20Chauhan%20Travels" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-whatsapp text-lg"></i> Book on WhatsApp
+        </a>
+        <a class="btn-header-call bg-white/10 border-white/60 text-white hover:bg-white hover:text-navy inline-flex items-center justify-center gap-2 py-3.5 px-8 text-sm" href="tel:+919990470656">
+          <i class="fa-solid fa-phone"></i> Call +91 9990470656
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section class="py-16 md:py-24 bg-slate-50 border-t border-slate-200" id="contact">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-xs md:text-sm font-bold uppercase tracking-[.2em] text-gold mb-2">Get In Touch</p>
+        <h2 class="font-display text-2xl md:text-4xl font-bold text-navy mb-4">Chauhan Travels &amp; Services</h2>
+        <div class="w-20 h-1 bg-gold mb-6 rounded-full"></div>
+        <p class="text-sm md:text-base text-slate-600 mb-8 leading-relaxed">
+          Premium travel support for every journey. Connect directly with our dispatch desk for bookings, quotes, and custom travel arrangements.
+        </p>
+        <div class="space-y-4 text-sm md:text-base text-slate-700">
+          <a class="flex items-center hover:text-gold transition-colors" href="tel:+919990470656">
+            <span class="material-symbols-outlined mr-3 text-gold">call</span>
+            <span class="font-semibold">+91 9990470656</span>
+          </a>
+          <a class="flex items-center hover:text-gold transition-colors" href="https://wa.me/919990470656" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-whatsapp text-xl mr-3 text-green-600"></i>
+            <span class="font-semibold">+91 9990470656 (24x7 WhatsApp Desk)</span>
+          </a>
+          <a class="flex items-center hover:text-gold transition-colors" href="mailto:info@chauhantravelsandservices.in">
+            <span class="material-symbols-outlined mr-3 text-gold">mail</span>
+            <span>info@chauhantravelsandservices.in</span>
+          </a>
+          <div class="flex items-start">
+            <span class="material-symbols-outlined mr-3 text-gold flex-shrink-0 mt-0.5">location_on</span>
+            <span>Plot No- 231, Sector -104, Hazipur, Noida, Gautam Buddh Nagar, UP 201301</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Requirement Form -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-slate-200">
+        <h3 class="font-display text-xl md:text-2xl font-bold text-navy mb-2 text-center">Quick Booking Inquiry</h3>
+        <p class="text-xs md:text-sm text-slate-500 mb-6 text-center">Fill in your travel details below and our dispatch team will connect on WhatsApp immediately.</p>
+        <form class="space-y-4" id="contact-form" autocomplete="on">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Your Full Name</label>
+            <input aria-label="Your name" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-navy" name="name" placeholder="E.g. Rajesh Sharma" required type="text"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Your Phone / WhatsApp Number</label>
+            <input aria-label="Your phone number" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-navy" name="phone" placeholder="E.g. 9876543210" required type="tel"/>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Travel Requirements</label>
+            <textarea aria-label="Your travel requirements" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-navy" name="message" placeholder="Pickup location, dates, car preference (e.g. Innova Crysta to Agra)..." required rows="3"></textarea>
+          </div>
+          <button class="w-full py-3.5 px-6 rounded-lg bg-gold hover:bg-navy text-navy hover:text-white font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2" type="submit">
+            <i class="fa-brands fa-whatsapp text-lg"></i> Send via WhatsApp (+91 9990470656)
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Unified Luxury Footer -->
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-grid">
+      <!-- Col 1 -->
+      <div class="footer-col-brand">
+        <div class="footer-logo-row">
+          <img src="images/logo.png" alt="Chauhan Travels Logo" width="52" height="52">
+          <div>
+            <div class="footer-brand-title">Chauhan Travels</div>
+            <div class="footer-brand-sub">16+ Years of Excellence | Est. 2010</div>
+          </div>
+        </div>
+        <p class="footer-desc">Premium chauffeur-driven car rentals, corporate mobility, airport transfers, and customized tour packages across Noida, Delhi NCR, and all major cities in India.</p>
+        <div class="footer-badges">
+          <span class="footer-badge"><i class="fa-solid fa-shield-halved"></i> Verified Chauffeurs</span>
+          <span class="footer-badge"><i class="fa-solid fa-clock"></i> 24x7 Support</span>
+          <span class="footer-badge"><i class="fa-solid fa-certificate"></i> Premium Fleet</span>
+        </div>
+      </div>
+
+      <!-- Col 2 -->
+      <div>
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="fleet.html"><i class="fa-solid fa-chevron-right"></i> Luxury Fleet</a></li>
+          <li><a href="packages.html"><i class="fa-solid fa-chevron-right"></i> Local Duty Packages</a></li>
+          <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> India Tour Packages</a></li>
+          <li><a href="payments.html"><i class="fa-solid fa-chevron-right"></i> Online Payment</a></li>
+          <li><a href="#contact"><i class="fa-solid fa-chevron-right"></i> Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3 -->
+      <div>
+        <h4 class="footer-heading">Services &amp; Tours</h4>
+        <ul class="footer-links-list">
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i> Airport Transfers</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i> Outstation &amp; Intercity</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i> Corporate Fleet Service</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i> Wedding &amp; VIP Cars</a></li>
+          <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Delhi Sightseeing Tour</a></li>
+          <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Agra Taj Mahal Tour</a></li>
+          <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Char Dham Yatra</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4 -->
+      <div>
+        <h4 class="footer-heading">Contact &amp; Support</h4>
+        <ul class="footer-contact-list">
+          <li class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Plot No- 231, Sector -104, Hazipur, Noida, Gautam Buddh Nagar, UP 201301</span>
+          </li>
+          <li class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:+919990470656">+91 9990470656</a>
+          </li>
+          <li class="footer-contact-item">
+            <i class="fa-brands fa-whatsapp"></i>
+            <a href="https://wa.me/919990470656" target="_blank" rel="noopener noreferrer">+91 9990470656 (24x7 WhatsApp)</a>
+          </li>
+          <li class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:info@chauhantravelsandservices.in">info@chauhantravelsandservices.in</a>
+          </li>
+        </ul>
+        <div class="footer-socials">
+          <a class="footer-social-link" href="https://www.facebook.com/share/1BpNGXatuU/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="footer-social-link" href="https://www.instagram.com/chauhantravelsandservices?igsi=MWhlOHVzejk2aXpueg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a class="footer-social-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        &copy; 2026 Chauhan Travels &amp; Services. All Rights Reserved.
+        <span class="mx-2">|</span>
+        Designed &amp; Developed by <a href="https://shrivastavwebstudio.shop" target="_blank" rel="noopener noreferrer">Shrivastav Web Studio</a>
+      </div>
+      <div class="footer-legal-links">
+        <a href="#privacy-modal" class="privacy-modal-btn">Privacy Policy</a>
+        <span>&bull;</span>
+        <a href="#terms-modal" class="terms-modal-btn">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Interactive Scripts -->
+<script>
+  // Contact Form WhatsApp submit
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(contactForm);
+      const message = `Hello Chauhan Travels, my name is ${formData.get('name')}. Phone: ${formData.get('phone')}. Requirement: ${formData.get('message')}`;
+      window.open(`https://wa.me/919990470656?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    });
+  }
+
+  // Hero Slider
+  (() => {
+    const heroSlider = document.getElementById('hero-slider');
+    const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+    const heroDots = document.getElementById('hero-dots');
+    const prevBtn = document.querySelector('.hero-arrow-prev');
+    const nextBtn = document.querySelector('.hero-arrow-next');
+    const sliceLayer = document.querySelector('.hero-slice-layer');
+    if (!heroSlider || !heroSlides.length || !heroDots || !prevBtn || !nextBtn || !sliceLayer) return;
+
+    let activeHeroSlide = 0;
+    let heroTimer = null;
+    let touchStartX = 0;
+
+    function buildSliceLayer(imageUrl) {
+      sliceLayer.innerHTML = '';
+      const sliceCount = 10;
+      for (let i = 0; i < sliceCount; i += 1) {
+        const slice = document.createElement('div');
+        slice.className = 'hero-slice';
+        slice.style.left = `${i * 10}%`;
+        slice.style.width = '10%';
+        slice.style.backgroundImage = `url('${imageUrl}')`;
+        slice.style.backgroundSize = `${sliceCount * 100}% 100%`;
+        slice.style.backgroundPosition = `${(i / (sliceCount - 1)) * 100}% center`;
+        slice.style.animationDelay = `${i * 0.04}s`;
+        sliceLayer.appendChild(slice);
+      }
+    }
+
+    function renderDots() {
+      heroDots.innerHTML = '';
+      heroSlides.forEach((slide, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+        dot.className = `hero-dot ${index === activeHeroSlide ? 'is-active' : ''}`;
+        dot.addEventListener('click', () => goToSlide(index));
+        heroDots.appendChild(dot);
+      });
+    }
+
+    function goToSlide(nextIndex) {
+      if (nextIndex === activeHeroSlide) return;
+      const currentSlide = heroSlides[activeHeroSlide];
+      const nextSlide = heroSlides[nextIndex];
+      currentSlide.classList.remove('is-active');
+      nextSlide.classList.add('is-active');
+      buildSliceLayer(nextSlide.src);
+      activeHeroSlide = nextIndex;
+      renderDots();
+    }
+
+    function startSlider() {
+      heroTimer = setInterval(() => {
+        const nextIndex = (activeHeroSlide + 1) % heroSlides.length;
+        goToSlide(nextIndex);
+      }, 5000);
+    }
+
+    function stopSlider() {
+      if (heroTimer) {
+        clearInterval(heroTimer);
+        heroTimer = null;
+      }
+    }
+
+    prevBtn.addEventListener('click', () => {
+      const prevIndex = (activeHeroSlide - 1 + heroSlides.length) % heroSlides.length;
+      goToSlide(prevIndex);
+      stopSlider();
+      startSlider();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const nextIndex = (activeHeroSlide + 1) % heroSlides.length;
+      goToSlide(nextIndex);
+      stopSlider();
+      startSlider();
+    });
+
+    heroSlider.addEventListener('mouseenter', stopSlider);
+    heroSlider.addEventListener('mouseleave', startSlider);
+
+    heroSlider.addEventListener('touchstart', (event) => {
+      touchStartX = event.touches[0].clientX;
+      stopSlider();
+    }, { passive: true });
+
+    heroSlider.addEventListener('touchend', (event) => {
+      const diff = event.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(diff) > 40) {
+        const nextIndex = diff < 0 ? (activeHeroSlide + 1) % heroSlides.length : (activeHeroSlide - 1 + heroSlides.length) % heroSlides.length;
+        goToSlide(nextIndex);
+      }
+      startSlider();
+    }, { passive: true });
+
+    renderDots();
+    buildSliceLayer(heroSlides[activeHeroSlide].src);
+    startSlider();
+  })();
+</script>
+<script src="site.js"></script>
+</body>
+</html>
